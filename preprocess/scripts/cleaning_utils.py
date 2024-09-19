@@ -25,3 +25,13 @@ def drop_outliers(
             inplace=True,
         )
     return dataframe
+
+
+def unite_floors_together(floor: str) -> str:
+    if floor in ('Entreplanta interior', 'Entreplanta exterior'):
+        floor = 'Entreplanta'
+    elif floor in ('Semi-sótano interior', 'Semi-sótano exterior'):
+        floor = 'Semi-sótano'
+    elif floor in ('Sótano interior', 'Sótano exterior'):
+        floor = 'Sótano'
+    return floor
