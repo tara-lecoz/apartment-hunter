@@ -10,7 +10,11 @@ python = "^3.11"
 pandas = "^2.2.2"
 numpy = "^2.1.1"
 scikit-learn = "^1.5.2"
+mlxtend = "^0.23.1"
 
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
 
 [build-system]
 requires = ["poetry-core"]

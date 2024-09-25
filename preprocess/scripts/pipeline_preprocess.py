@@ -1,17 +1,18 @@
-from typing import Literal, TypeAlias
-from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.pipeline import Pipeline 
-from sklearn.linear_model import LinearRegression
+from pandas import DataFrame, concat
 from sklearn.preprocessing import StandardScaler
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.svm import SVR
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
 
-Models: TypeAlias = LinearRegression | SVR | DecisionTreeRegressor
 
-class CustomEncoder(BaseEstimator, TransformerMixin):
-    pass    
 
-def pipeline_model(model: Models) -> Pipeline:
-    if not isinstance(LinearRegression, model) and not isinstance(SVR, model) and not isinstance(DecisionTreeRegressor, model):
-        raise NotImplementedError 
-    return Pipeline([('encoding', CustomEncoder()),('standardisation', StandardScaler()),('model', model())])
+def pipeline_model(dataframe) -> DataFrame:
+    categorical_columns = [column for column in dataframe.columns if dataframe[column].dtype == 'object']
+    numerical_columns = [column for column in dataframe.columns if dataframe[column].dtype in ['int64', 'float64']]
+
+    encoder=OneHotEncoder(sparse=False)
+    encoder.set_output(transform='pandas')
+    dataframe[categorical_columns] = e
+    scaler = StandardScaler()
+    dataframe = scaler.fit_transform(dataframe)
+
+    return dataframe
